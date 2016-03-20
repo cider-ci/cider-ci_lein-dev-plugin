@@ -61,10 +61,10 @@
                        :uberjar-name (str (:name project) ".jar")
                        :dependencies (concat (clj-utils-dependencies)
                                              (:dependencies project))
-                       :source-paths (concat [(clojure.string/join
+                       :source-paths (concat (:source-paths project)
+                                             [(clojure.string/join
                                                 File/separator
-                                                [(System/getProperty "user.dir") ".." "clj-utils" "src"])]
-                                             (:source-paths project))
+                                                [(System/getProperty "user.dir") ".." "clj-utils" "src"])])
                        :java-source-paths (concat [(clojure.string/join
                                                      File/separator
                                                      [(System/getProperty "user.dir") ".." "clj-utils" "java"])]
