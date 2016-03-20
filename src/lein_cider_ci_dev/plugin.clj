@@ -28,6 +28,11 @@
   (let [releases (yaml/parse-string (slurp "../config/releases.yml"))]
     (-> releases :releases first :edition)))
 
+(defn clj-utils-dependencies []
+  (-> "../clj-utils/dependencies.clj"
+      slurp
+      read-string))
+
 (defn normalize [path-part]
   (->  path-part
       .toLowerCase
@@ -54,6 +59,17 @@
                        :version version
                        :edition edition
                        :uberjar-name (str (:name project) ".jar")
+                       :dependencies (concat (clj-utils-dependencies)
+                                             (:dependencies project))
+                       :source-paths (concat [(clojure.string/join
+                                                File/separator
+                                                [(System/getProperty "user.dir") ".." "clj-utils" "src"])]
+                                             (:source-paths project))
+                       :java-source-paths (concat [(clojure.string/join
+                                                     File/separator
+                                                     [(System/getProperty "user.dir") ".." "clj-utils" "java"])]
+                                                  (:java-source-paths project)
+                                                  )
                        )]
     (write-clj-self-file project)
     project))
