@@ -2,6 +2,7 @@
   (:require
     [clj-yaml.core :as yaml]
     [clojure.tools.cli :refer [parse-opts]]
+    [clj-commons-exec :as exec]
 
     [logbug.catcher :refer [snatch]]
     )
@@ -19,7 +20,10 @@
                      (:version_patch current-release-info)
                      (when-let [pre (:version_pre current-release-info)]
                        (str "-" pre))
-                     (when-let [build (:version_build current-release-info)]
+                     (when-let [build (or (:version_build current-release-info)
+                                          (-> (exec/sh ["git" "log" "-n" "1" "--pretty=%t"]
+                                                       {:dir ".."})
+                                              deref :out clojure.string/trim))]
                        (str "+" build)))]
         version))
 

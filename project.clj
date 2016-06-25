@@ -1,4 +1,4 @@
-(defproject cider-ci/lein_cider-ci_dev "0.2.0"
+(defproject cider-ci/lein_cider-ci_dev "0.2.1"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -9,5 +9,6 @@
                  [org.clojure/clojure "1.7.0"]
                  [org.clojure/tools.cli "0.3.3"]
                  [org.yaml/snakeyaml "1.17"]
+                 [org.clojars.hozumi/clj-commons-exec "1.2.0"]
                  ]
   :eval-in-leiningen true)
