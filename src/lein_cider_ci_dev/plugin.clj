@@ -13,7 +13,10 @@
 (defn version []
   (let [releases (yaml/parse-string (slurp "../config/releases.yml"))
         current-release-info (-> releases :releases first)
-        version (str (:version_major current-release-info)
+        version (str "Cider-CI "
+                     (:edition current-release-info)
+                     " "
+                     (:version_major current-release-info)
                      "."
                      (:version_minor current-release-info)
                      "."
